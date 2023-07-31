@@ -2,6 +2,7 @@
 // // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +21,8 @@ namespace AnimationExamples
         public SampleViewer()
         {
             InitializeComponent();
+
+            Enumerable.Range(1,100).ToList().ForEach(i => wrapPanel.Children.Add(AddFrame(i)));
 
 
             var widthBinding = new Binding("ActualWidth") {Source = this};
@@ -46,46 +49,59 @@ namespace AnimationExamples
             BindingOperations.SetBinding(_borderTranslateDoubleAnimation, DoubleAnimation.FromProperty, widthBinding);
         }
 
+        private Frame AddFrame(int i)
+        {
+            Frame frame = new()
+            {
+                Name = $"Frame{i}",
+                Width = 100,
+                Height = 100,
+                Source = i%2==0? new Uri(@"3D\RotatingCubeExample.xaml", UriKind.Relative): new Uri(@"AnimatingAlongAPathExample.xaml", UriKind.Relative)
+            };
+
+            return frame;
+        }
+
         private void SelectedSampleChanged(object sender, RoutedEventArgs args)
         {
-            if (args.Source is RadioButton)
-            {
-                var theButton = (RadioButton) args.Source;
-                var theFrame = (Frame) theButton.Content;
+            //if (args.Source is RadioButton)
+            //{
+            //    var theButton = (RadioButton) args.Source;
+            //    var theFrame = (Frame) theButton.Content;
 
-                if (theFrame.HasContent)
-                {
-                    var source = theFrame.CurrentSource;
-                    if ((source != null) && !source.IsAbsoluteUri)
-                    {
-                        source = new Uri(PackUri, source);
-                    }
-                    SampleDisplayFrame.Source = source;
+            //    if (theFrame.HasContent)
+            //    {
+            //        var source = theFrame.CurrentSource;
+            //        if ((source != null) && !source.IsAbsoluteUri)
+            //        {
+            //            source = new Uri(PackUri, source);
+            //        }
+            //        SampleDisplayFrame.Source = source;
 
-                    SampleDisplayBorder.Visibility = Visibility.Visible;
-                }
-            }
+            //        SampleDisplayBorder.Visibility = Visibility.Visible;
+            //    }
+            //}
         }
 
         private void SampleDisplayFrameLoaded(object sender, EventArgs args)
         {
-            SampleGrid.BeginAnimation(OpacityProperty, _sampleGridOpacityAnimation);
-            SampleGridTranslateTransform.BeginAnimation(TranslateTransform.XProperty,
-                _sampleGridTranslateTransformAnimation);
-            SampleDisplayBorderTranslateTransform.BeginAnimation(TranslateTransform.XProperty,
-                _borderTranslateDoubleAnimation);
-            SampleDisplayBorder.Visibility = Visibility.Visible;
+            //SampleGrid.BeginAnimation(OpacityProperty, _sampleGridOpacityAnimation);
+            //SampleGridTranslateTransform.BeginAnimation(TranslateTransform.XProperty,
+            //    _sampleGridTranslateTransformAnimation);
+            //SampleDisplayBorderTranslateTransform.BeginAnimation(TranslateTransform.XProperty,
+            //    _borderTranslateDoubleAnimation);
+            //SampleDisplayBorder.Visibility = Visibility.Visible;
         }
 
         private void GalleryLoaded(object sender, RoutedEventArgs args)
         {
-            SampleDisplayBorderTranslateTransform.X = ActualWidth;
-            SampleDisplayBorder.Visibility = Visibility.Hidden;
+            //SampleDisplayBorderTranslateTransform.X = ActualWidth;
+            //SampleDisplayBorder.Visibility = Visibility.Hidden;
         }
 
         private void PageSizeChanged(object sender, SizeChangedEventArgs args)
         {
-            SampleDisplayBorderTranslateTransform.X = ActualWidth;
+            //SampleDisplayBorderTranslateTransform.X = ActualWidth;
         }
     }
 }

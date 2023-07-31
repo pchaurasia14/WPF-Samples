@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AnimationExamples": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

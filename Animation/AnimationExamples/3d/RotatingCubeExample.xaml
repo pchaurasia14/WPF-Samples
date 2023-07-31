@@ -105,12 +105,12 @@
                 <DoubleAnimation 
                   Storyboard.TargetName="myVerticalRotation"
                   Storyboard.TargetProperty="Angle"
-                  From="0" To="360" Duration="0:0:10"
+                  From="0" To="360" Duration="0:0:5"
                   RepeatBehavior="Forever" />
                 <DoubleAnimation 
                   Storyboard.TargetName="myHorizontalRotation"
                   Storyboard.TargetProperty="Angle"
-                  From="0" To="360" Duration="0:0:9"
+                  From="0" To="360" Duration="0:0:4"
                   RepeatBehavior="Forever" />
               </Storyboard>
             </BeginStoryboard>
